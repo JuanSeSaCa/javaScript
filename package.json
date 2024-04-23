@@ -5,13 +5,16 @@
   "main": "main.js",
   "scripts": {
     "dev": "node --watch js/main.js",
-    "server": "json-server js/db/clients.json -p 5601"
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "json-server js/db/clients.json -p 5601",
+    "offices": "json-server js/db/offices.json",
+    "employee": "json-server js/db/employee.json"
+    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "json-server": "^1.0.0-alpha.23"
-  }
+  },
+  "type": "module"
 }

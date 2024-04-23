@@ -1,24 +1,31 @@
-export const getAllFullNameAndEmails = async () =>{
-    let res = await fetch ("http://localhost:5502/employees")
-    let data = await res.json();
-    let dataUpdate = data.map(val=>{
+// 3.Devuelve un listado con el nombre, apellidos y email 
+//de los empleados cuyo jefe tiene un código de jefe igual a 7.
 
-        return {
-            name: val.name,
-            fullLastName: `${val.lastname} ${val. lastname2}`,
-            email: val.email.match... 
-        }
-    })
+export async function getAllFullNameAndEmails (codeBoss) {
+   const res = await fetch ("http://localhost:3000/employee?code_boss=7")
+     let data = await res.json();
+     let dataUpdate = data.map(employee=>{
 
-    return dataUpdate;
+         return {
+             name: employee.name,
+             fullLastName: `${employee.lastname1} ${employee.lastname2}`,
+             email: employee.email 
+         }
+     })
 
-}
+     console.log(dataUpdate);
+
+     
+ }
+
+ getAllFullNameAndEmails()
+
 
 //4. devuelve  el nombre del puesto, nombre, apellidos y 
 //email del jefe de la empresa  
 
-export const getBoss = async () =>{
-    let res = await fetch ("http://localhost:5502/employees")
-    let data = await res.json();
+// export const getBoss = async () =>{
+//     let res = await fetch ("http://localhost:5502/employees")
+//     let data = await res.json();
 
-    let boss = data.find(val=> val.boss === true);
+//     let boss = data.find(val=> val.boss === true);

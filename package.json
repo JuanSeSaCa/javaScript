@@ -4,6 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "dev": "node --watch js/main.js",
+    "server": "json-server js/db/clients.json -p 5601"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

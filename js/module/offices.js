@@ -35,4 +35,4 @@ export const getAllOficeAndCodeCity = async () =>{
             console.log(dataUpdate);
         }
     
-        getAllOficeAndTelephoneByCountry ()
+        //getAllOficeAndTelephoneByCountry ()

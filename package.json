@@ -7,7 +7,9 @@
     "dev": "node --watch js/main.js",
     "server": "json-server js/db/clients.json -p 5601",
     "offices": "json-server js/db/offices.json",
-    "employee": "json-server js/db/employee.json"
+    "employee": "json-server js/db/employee.json --watch",
+    "clients": "json-server js/db/clients.json --watch",
+    "requests": "json-server js/db/requests.json --watch"
     
   },
   "keywords": [],

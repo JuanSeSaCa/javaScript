@@ -14,8 +14,19 @@ export async function clientsByCity (country) {
     console.log(dataUpdate);
 }
 
-clientsByCity("Spain")
 
+// 6. Devuelve un listado con el nombre de los todos los clientes españoles.
+
+export const getAllClientsfromSpain = async() =>{
+    let rest = await fetch ("http://172.16.101.146:5541/clients?country=Spain")
+    let data = await rest.json();
+    let dataUpdate = data.map(val => {
+        return {
+            Name: val.client_name,
+        }
+    })
+    return dataUpdate;
+}
 
 
 

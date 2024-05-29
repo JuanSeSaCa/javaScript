@@ -17,22 +17,29 @@ export const getAllOficeAndCodeCity = async () =>{
 
    // getAllOficeAndCodeCity ()
 
-    //2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
+//2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
 
-    export const getAllOficeAndTelephoneByCountry = async () =>{
-        let res = await fetch("http://localhost:3000/offices?country=Espa\u00f1a")
-        let offices = await res.json()
-        let dataUpdate = offices.map(offices => {
-            let { city, movil } = offices
-            return ({
-        
-                city,
-                movil
+export const getAllOficeAndTelephoneByCountry = async () =>{
+    let res = await fetch("http://localhost:3000/offices?country=Espa\u00f1a")
+    let offices = await res.json()
+    let dataUpdate = offices.map(offices => {
+        let { city, movil } = offices
+        return ({
     
-            })
+            city,
+            movil
+
         })
-    
-            console.log(dataUpdate);
-        }
-    
-        //getAllOficeAndTelephoneByCountry ()
+    })
+
+        console.log(dataUpdate);
+    }
+
+    //getAllOficeAndTelephoneByCountry ()
+
+        // Obtener toda la informacion de la oficina por codigo
+export const getOfficesByCode = async (code) => {
+    let res = await fetch(`http://172.16.101.146:5545/offices?code_office=${code}`)
+    let data = await res.json();
+    return data
+}

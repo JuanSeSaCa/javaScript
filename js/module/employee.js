@@ -1,22 +1,23 @@
-// 3.Devuelve un listado con el nombre, apellidos y email 
-//de los empleados cuyo jefe tiene un código de jefe igual a 7.
-/*
-export async function getAllFullNameAndEmails (codeBoss) {
-   const res = await fetch (`http://localhost:3000/employee?code_boss=${codeBoss}`)
-     let employee  = await res.json();
-     let dataUpdate = employee.map(employee=>{
+import {getAllClientsByManagerCode} from "./clients.js"
+import {getOfficesByCode} from "./offices.js"
 
-         return {
-             name: employee.name,
-             fullLastName: `${employee.lastname1} ${employee.lastname2}`,
-             email: employee.email 
-         }
-     })
 
-     console.log(dataUpdate);   
- }
- getAllFullNameAndEmails(7)
-*/
+// 3. Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
+
+export const getAllEmployeesWithBossAndCodeSeven = async() =>{
+    let rest = await fetch ("http://172.16.101.146:5582/employee?code_boss=7")
+    let data = await rest.json();
+    let dataUpdate = [];
+    data.forEach(val => {
+        let [email] = val.email.match(/(?<=\[)[^\[\]]+@[^@\[\]]+(?=\])/)
+        dataUpdate.push({
+            nombre: val.name,
+            apellidos: `${val.lastname1} ${val.lastname2}`,
+            email
+        });
+    });
+    return dataUpdate;
+}
 
 
 
@@ -31,7 +32,7 @@ export async function getAllFullNameAndEmails (codeBoss) {
 //      let boss = data.find(val=> val.boss === true);
 
 export async function getBoss(codeBoss = null) {
-    const res = await fetch(`http://localhost:3000/employee?code_boss=${codeBoss}`)
+    const res = await fetch(`http://172.16.101.146:5582/employee?code_boss=${codeBoss}`)
     let employee = await res.json();
     let dataUpdate = employee.map(employee => {
 
@@ -53,7 +54,7 @@ export async function getBoss(codeBoss = null) {
 
 
 export async function getFullnameEmailEmployeesWithoutSales(position) {
-    let res = await fetch(`http://localhost:3000/employee?position=${position}`);
+    let res = await fetch(`http://172.16.101.146:5582/employee?position=${position}`);
     let employees = await res.json();
     let dataUpdate = employees.map(employee => {
         return {

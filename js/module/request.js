@@ -1,20 +1,12 @@
-//7. Devuelve un listado con los distintos estados por los que 
-//puede pasar un pedido.
+// 7. Devuelve un listado con los distintos estados por los que puede pasar un pedido.
 
-
-export async function getRequestFullStatus(status) {
-    let res = await fetch(`http://localhost:3000/requests?status=${status}`);
-    let requests = await res.json();
-    let dataUpdate = new set (requests.map(status => {
-        return {
-            status:status.status
-        }
-    }));
-
-    console.log(dataUpdate);
+export const getListStatusRequests = async () => {
+    let res = await fetch("http://172.16.101.146:5548/requests")
+    let data = await res.json();
+    let dataupdateset = new Set(data.map(dev => dev.status))
+    let dataUpdate = [...dataupdateset]
+    return dataUpdate
 }
-getRequestFullStatus()
-
 
 
 

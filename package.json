@@ -5,11 +5,14 @@
   "main": "main.js",
   "scripts": {
     "dev": "node --watch js/main.js",
-    "server": "json-server js/db/clients.json -p 5601",
-    "offices": "json-server js/db/offices.json",
-    "employee": "json-server js/db/employee.json --watch",
-    "clients": "json-server js/db/clients.json --watch",
-    "requests": "json-server js/db/requests.json --watch"
+    "offices": "json-server js/db/offices.json -p 5585 -h 172.16.101.146 ",
+    "employee": "json-server js/db/employee.json -p 5582 -h 172.16.101.146 ",
+    "clients": "json-server js/db/clients.json -p 5581 -h 172.16.101.146",
+    "requests": "json-server js/db/requests.json -p  5588 -h 172.16.101.146",
+    "payments": "json-server js/db/payments.json -p 5586 -h 172.16.101.146 ",
+    "product": "json-server js/db/product.json -p 5587 -h 172.16.101.146 ",
+    "requests_details": "json-server js/db/requests_details.json -p  5583 -h 172.16.101.146"
+
     
   },
   "keywords": [],

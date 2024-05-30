@@ -1,5 +1,5 @@
 import { getAllDetailsByOrderCode } from './request_details.js'; 
-import { getProductByCode } from './product.js';  
+// import { getProductByCode } from './product.js';  
 import {getAllOrdersByClientCode} from './requests.js'
 
 //11. Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.

@@ -3,10 +3,10 @@ details{
     margin-right: var(--layout-box-x);
     margin-bottom: var(--layout-box-y);
 }
-.details__description{
+/* .details__description{
     /* background: red;  */
     /* width: 80px; */
-}
+/* } */
 .details__container{
     width: 65%;
     height: 50px;

@@ -11,9 +11,9 @@ body {
     background: var(--color3);
 }
 
-.main {
+/* .main {
     /* background: red; */
-}
+/* } */
 
 .main__banner {
     height: 245px;
@@ -48,9 +48,9 @@ body {
     background: var(--color8);
     padding: 8px;
 }
-.main__report {
+/* .main__report {
     /* background: blue; */
-}
+/* } */
 
 .report__user {
     /* background: green; */

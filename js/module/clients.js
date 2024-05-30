@@ -226,3 +226,57 @@ export const getAllClientsWithALateDeliveryArrive = async ()=>{
     }
     return dataClients;
 }
+
+
+//  CONSULTA EXTERNA 
+
+//1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago
+export const getAllClientsWhoHaventPaid = async()=>{
+    let res = await fetch("http://172.16.101.146:5541/clients")
+    let data = await res.json();
+    let dataClient = [];
+    for (let i = 0; i < data.length; i++) {
+        let [payments] = await getAllClientsWhoPaid(data[i].client_code);
+        if (payments === undefined) {
+            dataClient.push(data[i]);
+        }
+    }
+    return dataClient;
+}
+
+//2. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
+export const getAllClientsWhoHaventRequest = async()=>{
+    let res = await fetch("http://172.16.101.146:5541/clients")
+    let data = await res.json();
+    let dataClient = [];
+    for (let i = 0; i < data.length; i++) {
+        let [ requests ] = await getAllClientsWhoPaid(data[i].client_code);
+        if(requests === undefined){
+            dataClient.push(data[i]);
+        }
+    }
+    return dataClient;
+}
+
+//3. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
+export const getAllClientsWhoHaveNeitherPaidNorRequest = async()=>{
+    let res = await fetch("http://172.16.101.146:5541/clients")
+    let data = await res.json();
+    let dataClient = [];
+    for (let i = 0; i < data.length; i++) {
+        let [ payments ] = await getAllClientsWhoPaid(data[i].client_code);
+        let [ requests ] = await getAllClientsWhoRequest(data[i].client_code);
+        if(payments === undefined && requests === undefined){
+            dataClient.push(data[i]);
+        }
+    }
+    return dataClient;
+}
+
+
+// obtener clientes por codigo de asesor de ventas
+export const getAllClientsByManagerCode = async (code) => {
+    let res = await fetch("http://172.16.101.146:5541/clients?code_employee_sales_manager=${code}")
+    let data = await res.json();
+    return data;
+}

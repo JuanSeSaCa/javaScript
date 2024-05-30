@@ -62,3 +62,20 @@ export const getAllClientsFromCityAndCode = async() =>{
     });
     return dataUpdate;
 }
+
+//CONSULTAS INTERNAS
+
+// 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
+
+export const getAllClientNameAndSalesManager = async () => {
+    let res = await fetch("http://172.16.101.146:5581/clients");
+    let data = await res.json();
+    for (let i = 0; i < data.length; i++) {
+        let [dataEmployee] = await getEmployeesByCode(data[i].code_employee_sales_manager)
+        data[i] = {
+            Client_name: data[i].client_name,
+            Manager_name: `${dataEmployee.name} ${dataEmployee.lastname1} ${dataEmployee.lastname2}`
+        }
+    }
+    return data;
+}

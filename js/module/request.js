@@ -54,3 +54,40 @@ export const getAllOrderCodeClientCodeAndDeliveryDateLeastTwoDaysBefore = async 
     })
     return dataUpdate;
 }
+// 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009
+
+export const getAllOrdersThatWereRejectedIn2009 = async () => {
+    let res = await fetch("http://172.16.101.146:5588/requests?status=Rechazado");
+    let data = await res.json();
+    let rejectedOrdersIn2009 = data.filter(order => {
+        let year = new Date(order.date_request).getFullYear();
+        return year === 2009;
+    });
+    return rejectedOrdersIn2009;
+}
+
+// 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
+
+export const getAllOrdersDeliveredInTheMonthOfJanuaryOfAnyYear = async () => {
+    let res = await fetch("http://172.16.101.146:5588/requests?status=Entregado");
+    let data = await res.json();
+    let ordersDeliveredInJanuary = data.filter(order => {
+        let month = new Date(order.date_delivery).getMonth();
+        return month === 0;
+    });
+    return ordersDeliveredInJanuary;
+}
+
+//Obtener el estado de un pedido mediante el codigo de su cliente
+export const getAllOrdersByClientCode = async(code = "")=>{
+    let res = await fetch(`http://172.16.101.146:5588/requests?code_client=${code}`).then(res => res.json());
+    return res
+}
+
+//Obetener datos de clientes mediante codgigo
+export const getAllClientsWhoRequest = async(code)=>{
+    let res = await fetch("http://172.16.101.146:5588/requests?code_client=${code}")
+    let data =await res.json();
+    return data;
+}
+

@@ -33,3 +33,28 @@ export const getPaypalPayments2008OrderedDescending = async () =>{
     dataUpdate.sort((a, b) => b.total - a.total)
     return dataUpdate;
 }
+
+// 14. Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
+
+export const getAllPaymentsMethods = async () => {
+    let res = await fetch('http://172.16.101.146:5586/payments');
+    let data = await res.json();
+    let paymentMethodsSet = new Set(data.map(item => item.payment));
+    return paymentMethodsSet;
+}
+
+
+//Obtener el pago de algun cliente mediante codigo
+export const getPaymentByClientCode = async (code = "") => {
+    let res = await fetch(`http://172.16.101.146:5586/payments?code_client=${code}`);
+    let data = await res.json();
+    return data;
+}
+
+
+export const getAllClientsWhoPaid = async(code = "") => {
+    let res = await fetch(`http://172.16.101.146:5586/payments?code_client=${code}`)
+    let data =await res.json();
+    return data;
+
+}

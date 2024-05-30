@@ -115,3 +115,42 @@ export const getAllEmployeeBossAndHisBossNames = async () => {
     return await Promise.all(dataUpdate);
 };
 
+// COSULTA EXTERNA
+
+// 4.2 Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
+
+export const getAllemployeesHaveNotOffices = async () => {
+    let res = await fetch('http://172.16.101.146:5542/employee').then(res => res.json());
+    let dataUpdate = res.map(async (val) => {
+        if (val.code_office == null) return {
+            Empleado: `${val.name} ${val.lastname1} ${val.lastname2}`
+        };
+        
+    });
+}
+
+// 5.2 Devuelve un listado que muestre solamente los empleados que no tienen un cliente asociado.
+
+export const getAllemployeesHaveNotClients = async () => {
+
+    let resEmployees = await fetch("http://172.16.101.146:5542/employee");
+    let employees = await resEmployees.json();
+    let resClients = await fetch("http://172.16.101.146:5541/clients"); 
+    let clients = await resClients.json();
+
+    let dataUpdate = [];
+    for (let i = 0; i < employees.length; i++) {
+        let employeeAssociated = false;
+        for (let j = 0; j < clients.length; j++) {
+            if (employees[i].employee_code === clients[j].code_employee_sales_manager) {
+                employeeAssociated = true;
+                break;
+            }
+        }
+        if (!employeeAssociated) {
+            dataUpdate.push(employees[i]);
+        }
+    }
+    return dataUpdate;
+};
+

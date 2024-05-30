@@ -119,3 +119,44 @@ export const getAllClientNameAndSalesManagerWithoutPayment = async () => {
     }
     return dataUpdate;
 }
+
+
+// 4.Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la 
+// ciudad de la oficina a la que pertenece el representante.
+
+export const getAllAlreadyClientsPaymentsAndManagerOffices = async () => {
+    let clients = await getAllClientNameAndSalesManagerWithPayment();
+    let dataUpdate = [];
+    for (const client of clients) {
+        let [dataEmployee] = await getEmployeesByCode(client.Manager_Code);
+        let [offices] = await getOfficesByCode(dataEmployee.code_office);
+        if (!dataUpdate.some(elmt => elmt.Client_name == client.Client_name)) {
+            dataUpdate.push({
+                Client_name: client.Client_name,
+                Manager_name: `${dataEmployee.name} ${dataEmployee.lastname1} ${dataEmployee.lastname2}`,
+                Manager_City: offices.city
+            })
+        }
+    }
+    return dataUpdate;
+}
+
+// 5.Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes 
+// junto con la ciudad de la oficina a la que pertenece el representante.
+
+export const getAllNotAlreadyClientsPaymentsAndManagerOffices = async () => {
+    let clients = await getAllClientNameAndSalesManagerWithoutPayment();
+    let dataUpdate = [];
+    for (const client of clients) {
+        let [dataEmployee] = await getEmployeesByCode(client.Manager_Code);
+        let [offices] = await getOfficesByCode(dataEmployee.code_office);
+        if (!dataUpdate.some(elmt => elmt.Client_name == client.Client_name)) {
+            dataUpdate.push({
+                Client_name: client.Client_name,
+                Manager_name: `${dataEmployee.name} ${dataEmployee.lastname1} ${dataEmployee.lastname2}`,
+                City: offices.city
+            })
+        }
+    }
+    return dataUpdate;
+}

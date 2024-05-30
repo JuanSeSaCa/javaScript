@@ -1,18 +1,18 @@
-//6. Devuelve un listado con el nombre de los todos los clientes españoles.
+// //6. Devuelve un listado con el nombre de los todos los clientes españoles.
 
-export async function clientsByCity (country) {
-    let res = await fetch (`http://localhost:3000/clients?country=${country}`);
-    let clients = await res.json();
-    let dataUpdate = clients.map(clients =>{
-        return {
-            name: clients.name,
-            fullLastName: `${clients.lastname1} ${clients.lastname2}`,
-            city: clients.city
+// export async function clientsByCity (country) {
+//     let res = await fetch (`http://localhost:3000/clients?country=${country}`);
+//     let clients = await res.json();
+//     let dataUpdate = clients.map(clients =>{
+//         return {
+//             name: clients.name,
+//             fullLastName: `${clients.lastname1} ${clients.lastname2}`,
+//             city: clients.city
 
-        }
-    });
-    console.log(dataUpdate);
-}
+//         }
+//     });
+//     console.log(dataUpdate);
+// }
 
 
 // 6. Devuelve un listado con el nombre de los todos los clientes españoles.

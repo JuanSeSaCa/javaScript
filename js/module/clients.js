@@ -197,3 +197,32 @@ export const getAllClientNameAndSalesManagerAndOffices = async () => {
     }
     return dataUpdate;
 }
+
+// 10. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+export const getAllClientsWithALateDeliveryArrive = async ()=>{
+    let res = await fetch("http://172.16.101.146:5588/requests?status=Entregado");
+    let dataRequest = await res.json();
+    let dataClients = [];
+
+    // Obtener todos los clientes
+    let clientsRes = await fetch("http://172.16.101.146:5581/clients");
+    let clientsData = await clientsRes.json();
+    let clientsMap = new Map(clientsData.map(client => [client.client_code, client.client_name]));
+
+    for (let i = 0; i < dataRequest.length; i++) {
+        let fecha1 = new Date(dataRequest[i].date_wait);
+        let fecha2 = new Date(dataRequest[i].date_delivery);
+        if (fecha2 > fecha1) {
+            let clientName = clientsMap.get(dataRequest[i].code_client);
+            if (clientName) {
+                let exists = dataClients.some(item => item.client_name === clientName);
+                if (!exists) {
+                    dataClients.push({
+                        "client_name": clientName,
+                    });
+                }
+            }
+        }
+    }
+    return dataClients;
+}
